@@ -39,8 +39,7 @@ function onSubmit(categories: Category[], questions: Question[]) {
       labels: categories.map((c) => c.category_name),
       datasets: [{
         label: 'Total',
-        data: [0, categorizedAnswers.map((a) => a.total), 80 * 6],
-        fill: true,
+        data: categorizedAnswers.map((a) => a.total),
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgb(255, 99, 132)',
         pointBackgroundColor: 'rgb(255, 99, 132)',
@@ -53,11 +52,15 @@ function onSubmit(categories: Category[], questions: Question[]) {
       scales: {
         x: {
           type: 'radialLinear',
-          beginAtZero: true
+          beginAtZero: true,
+          suggestedMax: 80,
+          suggestedMin: 0
         },
         y: {
           type: 'radialLinear',
-          beginAtZero: true
+          beginAtZero: true,
+          suggestedMax: 80,
+          suggestedMin: 0
         }
       },
     }
@@ -85,11 +88,11 @@ function Scan({scanName}: ScanProps) {
         setLatestShownQuestion(0);
 
         // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
-        setQuestions(
-          questions.map((q) => {
-            return { ...q, answer: Math.round(Math.random() * 10) }
-          })
-        );
+        // setQuestions(
+        //   questions.map((q) => {
+        //     return { ...q, answer: Math.round(Math.random() * 5) }
+        //   })
+        // );
       }).catch((err) => setError(err));
     }).catch((err) => setError(err));
   }, [scanName]);
