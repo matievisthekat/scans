@@ -1,0 +1,70 @@
+header {
+    padding: 20px;
+}
+
+header > h1 {
+    margin: 0;
+    color: hsl(0, 0%, 45%)
+}
+main {
+    padding: 25vh 0 45vh 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    row-gap: 100px;
+}
+
+#results {
+    scroll-margin-top: 30vh;
+}
+
+#thank-you-text {
+    text-align: center;
+}
+
+.q-and-a {
+    scroll-margin-top: 30vh;
+    width: auto;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    &.hidden {
+        opacity: 0.2;
+    }
+
+    &.shown {
+        opacity: 1;
+    }
+
+    &.hidden, &.shown {
+        transition: opacity .5s ease-in-out;
+    }
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl( 150, 100%, 60% );
+    box-shadow: grey 0 0 5px;
+    transition: background-color .2s ease-in-out;
+
+    &:hover {
+        background-color: hsl( 150, 100%, 40% );
+        cursor: pointer;
+    }
+
+    &.disabled {
+        background-color: hsl( 150, 100%, 60% );
+        cursor: not-allowed;
+    }
+}

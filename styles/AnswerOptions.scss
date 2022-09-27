@@ -1,0 +1,103 @@
+$green: hsl(123, 38%, 57%);
+$grey: hsl(200, 16%, 62%);
+$red: hsl(1, 83%, 63%);
+
+$xl: 45px;
+$large: 40px;
+$medium: 35px;
+$small: 30px;
+$xs: 25px;
+
+
+.answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 15px;
+
+    @media (max-width: 700px) {
+        flex-direction: column-reverse;
+        row-gap: 5px;
+    }
+}
+
+.option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    transition: all .1s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.disabled {
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.level-0, .level-5 {
+    flex: 0 0 $xl;
+    height: $xl;
+    max-width: $xl;
+}
+
+.level-1, .level-4 {
+    flex: 0 0 $large;
+    height: $large;
+    max-width: $large;
+}
+
+.level-2, .level-3 {
+    flex: 0 0 $medium;
+    height: $medium;
+    max-width: $medium;
+}
+
+//.level-3, .level-6 {
+//    flex: 0 0 $small;
+//    height: $small;
+//    max-width: $small;
+//}
+//
+//.level-4, .level-5 {
+//    flex: 0 0 $xs;
+//    height: $xs;
+//    max-width: $xs;
+//}
+
+.agree {
+    border-color: $green;
+    &#selected {
+        background-color: $green;
+    }
+    &:hover {
+        background-color: $green;
+    }
+}
+
+.neutral {
+    border-color: $grey;
+    &#selected {
+        background-color: $grey;
+    }
+    &:hover {
+        background-color: $grey;
+    }
+}
+
+.disagree {
+    border-color: $red;
+    &#selected {
+        background-color: $red;
+    }
+    &:hover {
+        background-color: $red;
+    }
+}

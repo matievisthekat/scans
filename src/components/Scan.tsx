@@ -3,7 +3,6 @@ import {Chart, Legend, LineElement, PointElement, RadarController, RadialLinearS
 import AnswerOptions from "./AnswerOptions";
 import {CategorizedAnswers, Category, Question} from "../util/types";
 import parseCsv from '../util/parseCsv';
-import '../css/Scan.scss';
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Legend, Tooltip);
 
@@ -40,7 +39,7 @@ function onSubmit(categories: Category[], questions: Question[]) {
       labels: categories.map((c) => c.category_name),
       datasets: [{
         label: 'Total',
-        data: categorizedAnswers.map((a) => a.total),
+        data: [0, categorizedAnswers.map((a) => a.total), 80 * 6],
         fill: true,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgb(255, 99, 132)',
@@ -86,11 +85,11 @@ function Scan({scanName}: ScanProps) {
         setLatestShownQuestion(0);
 
         // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
-        // setQuestions(
-        //   questions.map((q) => {
-        //     return { ...q, answer: Math.round(Math.random() * 10) }
-        //   })
-        // );
+        setQuestions(
+          questions.map((q) => {
+            return { ...q, answer: Math.round(Math.random() * 10) }
+          })
+        );
       }).catch((err) => setError(err));
     }).catch((err) => setError(err));
   }, [scanName]);

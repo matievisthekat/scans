@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import '../css/AnswerOptions.scss';
 
 interface Props {
   onChange?: (value: number) => void;
