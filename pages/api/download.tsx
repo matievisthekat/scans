@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, child, get } from "firebase/database";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	const app = initializeApp({
@@ -17,8 +17,19 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 	const db = getDatabase(app);
 
-	const body = req.body;
-	console.log(body);
+	const email = req.query.email as string;
+	if (!email) {
+		res.status(400).json({message: "Please provide an email address"});
+		return {};
+	}
+
+	get(child(ref(db), `users/${email.replace(".", "_")}`)).then((result) => {
+		if (result.exists()) {
+			res.status(200).send(JSON.stringify(result.val(), null, 2));
+		} else {
+			res.status(404).json({message: "No user found with that email address"});
+		}
+	});
 
 	return {};
 }
