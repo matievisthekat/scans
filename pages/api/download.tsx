@@ -5,7 +5,7 @@ import { getDatabase, ref, child, get } from "firebase/database";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	const app = initializeApp({
-		apiKey: "AIzaSyCnU6DnmfHlZNoS9V41Agvq4FlEHlgJMeM",
+		apiKey: process.env.API_KEY,
 		authDomain: "scans-3ddfc.firebaseapp.com",
 		projectId: "scans-3ddfc",
 		storageBucket: "scans-3ddfc.appspot.com",
