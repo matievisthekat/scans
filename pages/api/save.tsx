@@ -19,9 +19,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const data = JSON.parse(req.body);
   
-  set(ref(db, `users/${data.email}`), {
+  set(ref(db, `users/${data.email.replace(".", "_")}`), {
     totals: data.totals
   });
+
+  res.status(200).json({success:true});
 	
   return {};
 }

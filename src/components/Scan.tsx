@@ -78,8 +78,6 @@ function onSubmit(categories: Category[], questions: Question[], email: string) 
       totals: categorizedAnswers,
       email
     })
-  }).then((response) => {
-    console.log(response);
   });
 }
 
@@ -88,6 +86,7 @@ function Scan({scanName}: ScanProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [latestShownQuestion, setLatestShownQuestion] = useState(-1);
+  const [email, setEmail] = useState<string | null>(null);
 
   const scrollToRef = useRef<HTMLElement>(null);
 
@@ -146,7 +145,13 @@ function Scan({scanName}: ScanProps) {
         {allQuestionsHaveAnswers && (
           <>
             <h4 id={'thank-you-text'}>
-              Thank you for completing the Navigating Retirement Scan. Please click <a href={'#results'} onClick={() => onSubmit(categories, questions)}>here</a> to view your results.
+              Thank you for completing the Navigating Retirement Scan. Please click <a href={'#results'} onClick={() => {
+                if (email) {
+                  onSubmit(categories, questions, email);
+                } else {
+                  setEmail(prompt("Please enter your email address"));
+                }
+              }}>here</a> to view your results.
             </h4>
             <section id={'results'}>
               <div>
