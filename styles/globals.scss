@@ -1,3 +1,7 @@
+#root {
+  height: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -33,6 +37,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-#root {
-  height: 100%;
+button.submit {
+  display: block;
+  background-color: #33FF66;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 2px 1px grey;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #00e239;
+    cursor: pointer;
+  }
 }
