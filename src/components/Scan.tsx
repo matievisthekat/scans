@@ -23,7 +23,12 @@ function fetchCsv<T>(type: 'Questions' | 'Categories', name: string): Promise<T[
   });
 }
 
-function onSubmit(categories: Category[], questions: Question[]) {
+function onSubmit(categories: Category[], questions: Question[], email: string) {
+  // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
+  questions = questions.map((q) => {
+    return { ...q, answer: Math.round(Math.random() * 5) }
+  });
+
   const categorizedAnswers: CategorizedAnswers[] = [];
   for (const category of categories) {
     const categoryQuestions = questions.filter((q) => q.category_number === category.category_number);
@@ -40,6 +45,7 @@ function onSubmit(categories: Category[], questions: Question[]) {
       datasets: [{
         label: 'Total',
         data: categorizedAnswers.map((a) => a.total),
+        fill: true,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgb(255, 99, 132)',
         pointBackgroundColor: 'rgb(255, 99, 132)',
@@ -53,17 +59,27 @@ function onSubmit(categories: Category[], questions: Question[]) {
         x: {
           type: 'radialLinear',
           beginAtZero: true,
-          suggestedMax: 80,
-          suggestedMin: 0
+          max: 80,
+          min: 0
         },
         y: {
           type: 'radialLinear',
           beginAtZero: true,
-          suggestedMax: 80,
-          suggestedMin: 0
+          max: 80,
+          min: 0
         }
       },
     }
+  });
+
+  fetch("/api/save", {
+    method: "POST",
+    body: JSON.stringify({
+      totals: categorizedAnswers,
+      email
+    })
+  }).then((response) => {
+    console.log(response);
   });
 }
 
@@ -88,11 +104,11 @@ function Scan({scanName}: ScanProps) {
         setLatestShownQuestion(0);
 
         // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
-        // setQuestions(
-        //   questions.map((q) => {
-        //     return { ...q, answer: Math.round(Math.random() * 5) }
-        //   })
-        // );
+        setQuestions(
+          questions.map((q) => {
+            return { ...q, answer: Math.round(Math.random() * 5) }
+          })
+        );
       }).catch((err) => setError(err));
     }).catch((err) => setError(err));
   }, [scanName]);
