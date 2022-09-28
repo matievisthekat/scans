@@ -25,9 +25,9 @@ function fetchCsv<T>(type: 'Questions' | 'Categories', name: string): Promise<T[
 
 function onSubmit(categories: Category[], questions: Question[], email: string) {
   // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
-  questions = questions.map((q) => {
-    return { ...q, answer: Math.round(Math.random() * 5) }
-  });
+  // questions = questions.map((q) => {
+  //   return { ...q, answer: Math.round(Math.random() * 5) }
+  // });
 
   const categorizedAnswers: CategorizedAnswers[] = [];
   for (const category of categories) {
@@ -103,11 +103,11 @@ function Scan({scanName}: ScanProps) {
         setLatestShownQuestion(0);
 
         // for development. DON'T COMMIT THIS IF IT ISN'T COMMENTED OUT
-        setQuestions(
-          questions.map((q) => {
-            return { ...q, answer: Math.round(Math.random() * 5) }
-          })
-        );
+        // setQuestions(
+        //   questions.map((q) => {
+        //     return { ...q, answer: Math.round(Math.random() * 5) }
+        //   })
+        // );
       }).catch((err) => setError(err));
     }).catch((err) => setError(err));
   }, [scanName]);
